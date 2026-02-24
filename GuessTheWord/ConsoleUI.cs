@@ -25,6 +25,8 @@ namespace GuessTheWord
                     return input.ToUpper()[0];
             } while (true);
         }
+                // var result = Console.ReadLine();
+                //  return result[0];
 
         public DifficultyType ChooseDifficulty()
         {
