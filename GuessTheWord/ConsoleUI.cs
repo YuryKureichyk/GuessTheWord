@@ -6,9 +6,27 @@ namespace GuessTheWord
     {
         public char InputLetter()
         {
-            var result = Console.ReadLine();
-            return result[0];
+            do
+            {
+                Console.Clear();
+                Console.WriteLine("Input Letter:");
+                string input = Console.ReadLine();
+
+                if (string.IsNullOrEmpty(input))
+                    continue;
+                
+                bool isTooBig = input.Length != 1;
+
+                if (isTooBig) continue;
+                
+                bool isLetter = char.IsLetter(input[0]);
+                
+                if (isLetter) 
+                    return input.ToUpper()[0];
+            } while (true);
         }
+                // var result = Console.ReadLine();
+                //  return result[0];
 
         public DifficultyType ChooseDifficulty()
         {
