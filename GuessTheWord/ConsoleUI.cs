@@ -6,45 +6,38 @@ namespace GuessTheWord
     {
         public char InputLetter()
         {
-            do
+            char letter;
+            while (!char.TryParse(Console.ReadLine(), out letter) || !char.IsLetter(letter))
             {
-                Console.Clear();
-                Console.WriteLine("Input Letter:");
-                string input = Console.ReadLine();
-
-                if (string.IsNullOrEmpty(input))
-                    continue;
-                
-                bool isTooBig = input.Length != 1;
-
-                if (isTooBig) continue;
-                
-                bool isLetter = char.IsLetter(input[0]);
-                
-                if (isLetter) 
-                    return input.ToUpper()[0];
-            } while (true);
+                Console.Write("Input error. Please enter a letter. ");
+            }
+            return char.ToLower(letter);
         }
-              
 
         public DifficultyType ChooseDifficulty()
         {
-            Console.WriteLine("Choose difficulty:\n" +
-                              "1 - easy\n" +
-                              "2 - normal\n" +
-                              "3 - hard");
-            var result = Console.ReadLine();
-
-            switch (result)
+            while (true)
             {
-                case "1":
-                    return DifficultyType.Easy;
-                case "2":
-                    return DifficultyType.Normal;
-                case "3":
-                    return DifficultyType.Hard;
-                default:
-                    return DifficultyType.Easy;
+
+                Console.WriteLine("Choose difficulty:\n" +
+                                  "1 - easy\n" +
+                                  "2 - normal\n" +
+                                  "3 - hard");
+                var result = Console.ReadLine();
+
+                switch (result)
+                {
+                    case "1":
+                        return DifficultyType.Easy;
+                    case "2":
+                        return DifficultyType.Normal;
+                    case "3":
+                        return DifficultyType.Hard;
+                    default:
+                        Console.WriteLine("Invalid choice. Enter 1, 2, or 3");
+                        break;
+                    
+                }
             }
         }
 
@@ -71,7 +64,17 @@ namespace GuessTheWord
 
         public void ShowGameResult(bool isWin)
         {
-            Console.WriteLine(isWin ? "You won!" : "You lost!");
+            if (isWin)
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("You won!!!");
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"You lost");
+            }
+            Console.ResetColor();
         }
     }
 }
