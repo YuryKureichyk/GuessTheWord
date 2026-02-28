@@ -19,10 +19,20 @@ namespace GuessTheWord
             while (true)
             {
 
-                Console.WriteLine("Choose difficulty:\n" +
-                                  "1 - easy\n" +
-                                  "2 - normal\n" +
-                                  "3 - hard");
+                Console.WriteLine("=== WELCOME TO THE GAME OF HANGMAN ===");
+                Console.WriteLine("Select difficulty level:");
+
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("1 - EASY (10 attempts, short words)");
+
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("2 - NORMAL (8 attempts, average words)");
+
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("3 - HARD (6 attempts, long words)");
+
+                Console.ResetColor();
+                Console.WriteLine("Your choice:");
                 var result = Console.ReadLine();
 
                 switch (result)
@@ -51,15 +61,11 @@ namespace GuessTheWord
 
             Console.WriteLine();
         }
-
-        public void ShowWords(string[] word)
-        {
-            Console.WriteLine($"Words:{word}");
-        }
+        
 
         public void ShowLeftAttempts(int leftAttempts)
         {
-            Console.WriteLine($"Left attempts:{leftAttempts}");
+            Console.WriteLine($"You have attempts left.:{leftAttempts}");
         }
 
         public void ShowGameResult(bool isWin)
@@ -75,6 +81,89 @@ namespace GuessTheWord
                 Console.WriteLine($"You lost");
             }
             Console.ResetColor();
+        }
+        public void DrawGallows(int errors, int maxAttempts)
+        {
+            string[] stages = {
+                @"
+           -----
+
+           |   |
+               |
+
+               |
+               |
+               |
+        =========",
+                @"
+           -----
+
+           |   |
+           O   |
+
+               |
+               |
+               |
+        =========",
+                @"
+           -----
+
+           |   |
+           O   |
+
+           |   |
+               |
+
+               |
+        =========",
+                @"
+           -----
+           |   |
+           O   |
+          /|   |
+
+               |
+               |
+        =========",
+                @"
+           -----
+
+           |   |
+           O   |
+          /|\  |
+
+               |
+               |
+        =========", 
+                @"
+           -----
+
+           |   |
+           O   |
+          /|\  |
+          /    |
+
+               |
+        =========",
+                @"
+           -----
+           |   |
+           O   |
+          /|\  |
+          / \  |
+               |
+        ========="  
+            };
+
+            var index = (int)((double)errors / maxAttempts * (stages.Length - 1));
+            
+            if (index < 0) index = 0;
+            if (index >= stages.Length) index = stages.Length - 1;
+            
+            if (errors >= maxAttempts) 
+                index = stages.Length - 1;
+
+            Console.WriteLine(stages[index]);
         }
     }
 }

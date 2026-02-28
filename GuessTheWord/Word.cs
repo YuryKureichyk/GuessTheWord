@@ -21,7 +21,7 @@ namespace GuessTheWord
 
         public string GetMask(char[] guessedLetters)
         {
-            string result = string.Empty;
+            var result = string.Empty;
 
 
             foreach (char letter in _value)
