@@ -7,8 +7,16 @@ namespace GuessTheWord
         public static void Main(string[] args)
         {
             var ui = new ConsoleUI();
-
-            ui.ShowGameResult(true);
+            var bank = new WordBank();
+            
+            var type = ui.ChooseDifficulty();
+            var difficulty = new Difficulty(type);
+            var secretWord = bank.Generate(difficulty);
+            
+            var game = new Game(secretWord, difficulty.Attempt);
+            game.Run();
+            Console.WriteLine("Exiting...");
+            Console.ReadKey();
 
         }
     }

@@ -1,26 +1,20 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace GuessTheWord
 {
     public class WordBank
     {
-        private Word[] _words;
+        private List<string> _words;
 
         public WordBank()
         {
-            _words = new[]
+            _words = new List<string>()
             {
-                new Word("ide"),
-                new Word("dog"),
-                new Word("cat"),
-                new Word("home"),
-                new Word("cold"),
-                new Word("unity"),
-                new Word("laptop"),
-                new Word("family"),
-                new Word("teacher"),
-                new Word("computer"),
+                "ide", "dog", "cat", "home","fish","tree","snow","moon",
+                "cold", "unity","house","apple","river","smile", "laptop", "family", "teacher", 
+                "computer","forest","flight","spirit","bright"
             };
         }
 
@@ -30,8 +24,8 @@ namespace GuessTheWord
                 .Where(word => word.Length >= difficulty.MinWordLenght &&
                                word.Length <= difficulty.MaxWordLenght).ToArray();
             var random = new Random();
-            int index = random.Next(words.Length);
-            return words[index];
+            var index = random.Next(words.Length);
+            return new Word(words[index]);
         }
     }
 }
